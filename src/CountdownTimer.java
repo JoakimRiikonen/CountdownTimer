@@ -1,7 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.Timer;
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import javax.sound.sampled.*;
 
 public class CountdownTimer extends Frame implements WindowListener{
@@ -20,13 +21,13 @@ public class CountdownTimer extends Frame implements WindowListener{
 
     public CountdownTimer(){
         //open the sound effect
-        try {
-            File soundfile = new File("Click.wav");
-            AudioInputStream ais = AudioSystem.getAudioInputStream(soundfile);
+        try{
+            InputStream in = getClass().getResourceAsStream("Click.wav");
+            InputStream bufferedIn = new BufferedInputStream(in);
+            AudioInputStream ais = AudioSystem.getAudioInputStream(bufferedIn);
             clip = AudioSystem.getClip();
             clip.open(ais);
         }
-        //print error if present
         catch(Exception e){
             e.printStackTrace();
         }
